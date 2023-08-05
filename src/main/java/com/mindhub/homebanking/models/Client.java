@@ -13,7 +13,8 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private int id;
+    private Long id; // Cambiado a Long
+
     private String firstName;
     private String lastName;
     private String email;
@@ -23,15 +24,14 @@ public class Client {
     public Client(String first, String last, String email) {
         firstName = first;
         lastName = last;
-
-        this.email=email;
+        this.email = email;
     }
 
-    public int getId() {
+    public Long getId() { // Cambiado a Long
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) { // Cambiado a Long
         this.id = id;
     }
 
