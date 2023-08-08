@@ -12,7 +12,7 @@ public class AccountDTO {
 
     public AccountDTO() { }
     public AccountDTO(Account account) {
-        this.id = account.getOwner().getId();
+        this.id = account.getClient().getId();
         this.number = account.getNumber();
         this.date = account.getDate();
         this.balance = account.getBalance();

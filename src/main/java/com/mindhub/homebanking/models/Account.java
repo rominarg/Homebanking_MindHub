@@ -1,57 +1,68 @@
 package com.mindhub.homebanking.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.GenericGenerator;
+import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Account {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name="native", strategy = "native")
-    private Long id;
+    @GeneratedValue(
+            strategy = GenerationType.AUTO,
+            generator = "native"
+    )
+    @GenericGenerator(
+            name = "native",
+            strategy = "native"
+    )
+    private long id;
+    @ManyToOne(
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(
+            name = "client_id"
+    )
+    private Client client;
     private String number;
     private LocalDate date;
-    private Client owner;
     private double balance;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
+    public Account() {
+    }
 
-
-    public Account (){}
-
-    public Account (String number, LocalDate date, Double balance, Client client){
+    public Account(String number, LocalDate date, Double balance, Client client) {
         this.number = number;
         this.date = date;
         this.balance = balance;
-        this.owner = client;
+        this.client = client;
     }
-
 
     @JsonIgnore
-    public Client getOwner() {
-        return owner;
-    }
-    public void setOwner(Client owner) {
-        this.owner = owner;
+    public Client getClient() {
+        return this.client;
     }
 
-    public String getNumber(){
-        return number;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public void setNumber(String number){
+    public String getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(String number) {
         this.number = number;
     }
 
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(LocalDate date) {
@@ -59,20 +70,15 @@ public class Account {
     }
 
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
     public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    @Override
     public String toString() {
-        return "Account{" +
-                "owner=" + owner +
-                ", number='" + number + '\'' +
-                ", date=" + date +
-                ", balance=" + balance +
-                '}';
+        return "Account{client=" + this.client + ", number='" + this.number + "', date=" + this.date + ", balance=" + this.balance + "}";
     }
 }
+
