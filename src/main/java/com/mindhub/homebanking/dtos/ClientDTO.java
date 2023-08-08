@@ -13,7 +13,7 @@ public class ClientDTO {
 
     private String email;
 
-    private Set<AccountDTO> account;
+    private Set<AccountDTO> accounts;
 
     public ClientDTO() {
     }
@@ -27,7 +27,7 @@ public class ClientDTO {
 
         this.email = client.getEmail();
 
-        this.account = client.getAccount().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        this.accounts = client.getAccount().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
     }
 
     public long getId() {
@@ -58,12 +58,12 @@ public class ClientDTO {
         this.email = email;
     }
 
-    public void setAccount(Set<AccountDTO> account) {
-        this.account = account;
+    public void setAccounts(Set<AccountDTO> accounts) {
+        this.accounts = accounts;
     }
 
-    public Set<AccountDTO> getAccount() {
-        return account;
+    public Set<AccountDTO> getAccounts() {
+        return accounts;
     }
 
     public String getEmail() {

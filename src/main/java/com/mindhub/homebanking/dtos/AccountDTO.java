@@ -18,8 +18,6 @@ public class AccountDTO {
         this.balance = account.getBalance();
     }
 
-
-
     public long getId() {
         return id;
     }
