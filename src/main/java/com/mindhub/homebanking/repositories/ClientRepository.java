@@ -8,3 +8,5 @@ import com.mindhub.homebanking.models.Client;
 public interface ClientRepository extends JpaRepository<Client, String> {
 
 }
+
+
