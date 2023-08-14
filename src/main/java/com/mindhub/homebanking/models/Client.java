@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,41 +12,32 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-    private long id;
-
+    // Relación one-to-many con la entidad Account, mapeada por el campo "client"
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
+    // Constructor vacío
     public Client() {
     }
 
+    // Constructor con parámetros para inicializar algunos atributos
     public Client(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public Set<Account> getAccount() {
-        return accounts;
-    }
-
-    public void addAccount(Account account) {
-        account.setClient(this);
-        accounts.add(account);
-    }
-
-
-    public long getId() {
+    // Método getter para acceder al ID del cliente
+    public Long getId() {
         return id;
     }
 
+    // Métodos getters y setters para acceder a los atributos del cliente
     public String getFirstName() {
         return firstName;
     }
@@ -70,12 +62,14 @@ public class Client {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    // Métodos getters y setters para la relación con Account
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void addAccount(Account account) {
+        // Configurar la relación bidireccional entre Client y Account
+        account.setClient(this);
+        accounts.add(account);
     }
 }

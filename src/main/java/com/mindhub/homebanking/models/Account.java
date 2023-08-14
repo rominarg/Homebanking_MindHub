@@ -1,84 +1,90 @@
 package com.mindhub.homebanking.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "native"
-    )
-    @GenericGenerator(
-            name = "native",
-            strategy = "native"
-    )
-    private long id;
-    @ManyToOne(
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-            name = "client_id"
-    )
-    private Client client;
-    private String number;
-    private LocalDate date;
-    private double balance;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Long id;
+    private String number;
+    private LocalDate creationDate;
+    private Double balance;
+
+    // Relación many-to-one con la entidad Client
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    // Relación one-to-many con la entidad Transaction, mapeada por el campo "account"
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Transaction> transactions = new HashSet<>();
+
+    // Constructor vacío
     public Account() {
     }
 
-    public Account(String number, LocalDate date, Double balance, Client client) {
+    // Constructor con parámetros para inicializar algunos atributos
+    public Account(String number, LocalDate creationDate, Double balance) {
         this.number = number;
-        this.date = date;
+        this.creationDate = creationDate;
         this.balance = balance;
-        this.client = client;
     }
 
-    @JsonIgnore
-    public Client getClient() {
-        return this.client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
+    // Métodos getters y setters para acceder a los atributos de la entidad Account
+    public Long getId() {
+        return id;
     }
 
     public String getNumber() {
-        return this.number;
+        return number;
     }
 
     public void setNumber(String number) {
         this.number = number;
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public double getBalance() {
-        return this.balance;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public String toString() {
-        return "Account{client=" + this.client + ", number='" + this.number + "', date=" + this.date + ", balance=" + this.balance + "}";
+    // Métodos getters y setters para la relación con Client
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    // Métodos getters y setters para la relación con Transaction
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        // Configurar la relación bidireccional entre Account y Transaction
+        transaction.setAccount(this);
+        transactions.add(transaction);
     }
 }
-
