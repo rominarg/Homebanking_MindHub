@@ -57,23 +57,23 @@ public class HomebankingApplication {
 			accountRepository.save(account4);
 
 			// Crear y guardar nuevas transacciones
-			Transaction transaction1 = new Transaction(TransactionType.DEBIT, -500.0, "Débito -500", LocalDateTime.now());
+			Transaction transaction1 = new Transaction(TransactionType.DEBIT, -1500.0, "Débito -1500", LocalDateTime.now());
 			account1.addTransaction(transaction1);
 			transactionRepository.save(transaction1);
 
-			Transaction transaction2 = new Transaction(TransactionType.CREDIT, 2500.0, "Crédito $2500", LocalDateTime.now());
+			Transaction transaction2 = new Transaction(TransactionType.CREDIT, 3500.0, "Crédito $3500", LocalDateTime.now());
 			account2.addTransaction(transaction2);
 			transactionRepository.save(transaction2);
 
-			Transaction transaction3 = new Transaction(TransactionType.DEBIT, -100.0, "Débito $100", LocalDateTime.now());
+			Transaction transaction3 = new Transaction(TransactionType.DEBIT, -200.0, "Débito $200", LocalDateTime.now());
 			account4.addTransaction(transaction3);
 			transactionRepository.save(transaction3);
 
-			Transaction transaction4 = new Transaction(TransactionType.CREDIT, 1500.0, "Crédito $1500", LocalDateTime.now());
+			Transaction transaction4 = new Transaction(TransactionType.CREDIT, 3500.0, "Crédito $3500", LocalDateTime.now());
 			account1.addTransaction(transaction4);
 			transactionRepository.save(transaction4);
 
-			Transaction transaction5 = new Transaction(TransactionType.DEBIT, -1500.0, "Débito $1500", LocalDateTime.now());
+			Transaction transaction5 = new Transaction(TransactionType.DEBIT, -2500.0, "Débito $2500", LocalDateTime.now());
 			account4.addTransaction(transaction5);
 			transactionRepository.save(transaction5);
 		});

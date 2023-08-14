@@ -18,6 +18,11 @@ body {
     color: white;
 }
 
+.nav-link.active {
+    background-color: fuchsia;
+    color: black;
+}
+
 .account, .loan {
     background: linear-gradient(45deg, #ee0979, #ff6a00);
 }
