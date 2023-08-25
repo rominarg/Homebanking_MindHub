@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.dtos;
 
-import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
 
@@ -13,11 +12,6 @@ public class TransactionDTO {
     private double amount;
     private String description;
     private LocalDateTime date;
-    private Account account;
-
-    // Constructor vacío, puede ser útil en algunas situaciones
-    public TransactionDTO() {
-    }
 
     // Constructor que recibe un objeto Transaction y crea un objeto TransactionDTO
     public TransactionDTO(Transaction transaction) {
@@ -48,4 +42,5 @@ public class TransactionDTO {
     public LocalDateTime getDate() {
         return date;
     }
-}
+    }
+
